@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="SpringIOC概述, JHang的博客网站">
+    <meta name="keywords" content="SpringBean基础知识, JHang的博客网站">
     <meta name="description" content="JHang的博客网站">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>SpringIOC概述 | JHang的博客网站</title>
+    <title>SpringBean基础知识 | JHang的博客网站</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -205,12 +205,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/6.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/12.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">SpringIOC概述</h1>
+                    <h1 class="description center-align post-title">SpringBean基础知识</h1>
                 </div>
             </div>
         </div>
@@ -338,6 +338,10 @@
                                 <span class="chip bg-color">源码</span>
                             </a>
                         
+                            <a href="/tags/SpringBean/">
+                                <span class="chip bg-color">SpringBean</span>
+                            </a>
+                        
                     </div>
                     
                 </div>
@@ -397,192 +401,62 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="传统IOC实现策略"><a href="#传统IOC实现策略" class="headerlink" title="传统IOC实现策略"></a>传统IOC实现策略</h1><blockquote>
-<p>使用java原生IOC容器实现Bean的管理</p>
-</blockquote>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">IntrospectionException</span> <span class="token punctuation">{</span>
-    <span class="token class-name">BeanInfo</span> beanInfo <span class="token operator">=</span> <span class="token class-name">Introspector</span><span class="token punctuation">.</span><span class="token function">getBeanInfo</span><span class="token punctuation">(</span><span class="token class-name">Person</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">,</span> <span class="token class-name">Object</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-    <span class="token class-name">PropertyDescriptor</span><span class="token punctuation">[</span><span class="token punctuation">]</span> propertyDescriptors <span class="token operator">=</span> beanInfo<span class="token punctuation">.</span><span class="token function">getPropertyDescriptors</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token class-name">PropertyDescriptor</span> propertyDescriptor <span class="token operator">:</span> propertyDescriptors<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>propertyDescriptor<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-
-
-<p>结果如下：</p>
-<p><img src="C:\Users\10841\AppData\Roaming\Typora\typora-user-images\image-20221216145332889.png" alt="image-20221216145332889"></p>
-<p><strong>这里的重点在于：PropertyDescriptor会在Spring3.0之前框架中大量使用</strong></p>
-<h1 id="依赖查找-VS-依赖注入"><a href="#依赖查找-VS-依赖注入" class="headerlink" title="依赖查找 VS 依赖注入"></a>依赖查找 VS 依赖注入</h1><blockquote>
-<p>为什么Spring总会强调后者？而选择性忽略前者呢？</p>
-</blockquote>
+                <h1 id="什么是BeanDefinition"><a href="#什么是BeanDefinition" class="headerlink" title="什么是BeanDefinition"></a>什么是BeanDefinition</h1><p>BeanDefintion是框架中定义的Bean的配置元信息接口，包含：</p>
 <ul>
-<li>优劣对比</li>
+<li>Bean的类名</li>
+<li>Bean的行为配置元素，如：作用域，自动绑定的模式，生命周期回调等</li>
+<li>其他Bean引用，又可称为合作者（Collaborators）或依赖（Dependencies）</li>
+<li>配置设置，比如Bean属性（Properties）</li>
 </ul>
-<table>
+<h2 id="1-1-元信息"><a href="#1-1-元信息" class="headerlink" title="1.1 元信息"></a>1.1 元信息</h2><table>
 <thead>
 <tr>
-<th>类型</th>
-<th>依赖处理</th>
-<th>实现便利性</th>
-<th>代码侵入性</th>
-<th>API依赖性</th>
-<th>可读性</th>
+<th>属性（Property）</th>
+<th>说明</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>依赖查找</td>
-<td>主动</td>
-<td>繁琐</td>
-<td>高</td>
-<td>依赖容器API</td>
-<td>良好</td>
+<td>Class</td>
+<td>Bean全类名，必须是具体类，不能是 <strong>抽象类或接口</strong></td>
 </tr>
 <tr>
-<td>依赖注入</td>
-<td>被动</td>
-<td>便利</td>
-<td>低</td>
-<td>不依赖容器API</td>
-<td>一般</td>
+<td>Name</td>
+<td>Bean的名称或者ID</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Bean的作用域（如：singleton，prototype等）</td>
+</tr>
+<tr>
+<td>Constructor arguments</td>
+<td>Bean的构造器参数（用于依赖注入）</td>
+</tr>
+<tr>
+<td>Properties</td>
+<td>Bean的属性设置（用于依赖注入）</td>
+</tr>
+<tr>
+<td>Autowiring mode</td>
+<td>Bean的自动绑定模式（如：通过名称 byName）</td>
+</tr>
+<tr>
+<td>Lazy Initialization mode</td>
+<td>Bean延迟初始化模式（延迟和非延迟）</td>
+</tr>
+<tr>
+<td>Initialization method</td>
+<td>Bean初始化回调方法名称</td>
+</tr>
+<tr>
+<td>Destruction method</td>
+<td>Bean销毁回调方法名称</td>
 </tr>
 </tbody></table>
-<h2 id="1-1-依赖查找"><a href="#1-1-依赖查找" class="headerlink" title="1.1 依赖查找"></a>1.1 依赖查找</h2><ul>
-<li>根据Bean名称查找<ul>
-<li>实时查找</li>
-<li>延迟查找（<strong>和延迟加载Bean不是一回事</strong>）</li>
+<h2 id="1-2-BeanDefinition构建"><a href="#1-2-BeanDefinition构建" class="headerlink" title="1.2 BeanDefinition构建"></a>1.2 BeanDefinition构建</h2><ul>
+<li>通过BeanDefinitionBuilder</li>
+<li>通过AbstractBeanDefinition以及派生类</li>
 </ul>
-</li>
-<li>根据Bean类型查找<ul>
-<li>单个Bean对象</li>
-<li>多个Bean对象</li>
-</ul>
-</li>
-<li>根据Bean名称 + 类型查找</li>
-<li>根据Java注解查找<ul>
-<li>单个Bean对象</li>
-<li>集合Bean对象</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<p>根据Bean名称进行查找</p>
-</blockquote>
-<ul>
-<li>实时查找</li>
-<li>延迟查找</li>
-</ul>
-<p><strong>XML配置如下</strong></p>
-<p><img src="C:\Users\10841\AppData\Roaming\Typora\typora-user-images\image-20221216154022253.png" alt="image-20221216154022253"></p>
-<p><img src="C:\Users\10841\AppData\Roaming\Typora\typora-user-images\image-20221216154038834.png" alt="image-20221216154038834"></p>
-<blockquote>
-<p>根据类型查找Bean</p>
-</blockquote>
-<ul>
-<li>单个Bean查找</li>
-<li>多个Bean查找</li>
-</ul>
-<p>多个Bean得通过 <strong>ListtableBeanFactory</strong> 工厂进行查找</p>
-<p><img src="C:\Users\10841\AppData\Roaming\Typora\typora-user-images\image-20221216154543120.png" alt="image-20221216154543120"></p>
-<p><strong>结果如下</strong></p>
-<blockquote>
-<p>实时查找Users{name=’张三’, id=1}<br>查找到所有的User集合对象{user=Users{name=’张三’, id=1}}</p>
-</blockquote>
-<blockquote>
-<p>通过Java注解查找</p>
-</blockquote>
-<p><img src="C:\Users\10841\AppData\Roaming\Typora\typora-user-images\image-20221216160812932.png" alt="image-20221216160812932"></p>
-<h2 id="1-2-依赖注入"><a href="#1-2-依赖注入" class="headerlink" title="1.2 依赖注入"></a>1.2 依赖注入</h2><ul>
-<li>根据Bean名称注入</li>
-<li>根据Bean类型注入<ul>
-<li>单个Bean对象</li>
-<li>多个Bean对象</li>
-</ul>
-</li>
-<li>注入容器内建Bean对象</li>
-<li>注入非Bean对象</li>
-<li>注入类型<ul>
-<li>实时</li>
-<li>延迟</li>
-</ul>
-</li>
-</ul>
-<p><img src="C:\Users\10841\AppData\Roaming\Typora\typora-user-images\image-20221216163137269.png" alt="image-20221216163137269"></p>
-<blockquote>
-<p>注入容器内建的Bean</p>
-</blockquote>
-<p><img src="C:\Users\10841\AppData\Roaming\Typora\typora-user-images\image-20221216163827548.png" alt="image-20221216163827548"></p>
-<p><img src="C:\Users\10841\AppData\Roaming\Typora\typora-user-images\image-20221216163923998.png" alt="image-20221216163923998"></p>
-<p><strong>结果如下</strong></p>
-<ol>
-<li><p>org.springframework.beans.factory.support.DefaultListableBeanFactory@1a04f701: defining beans [user,objectFactory,superUser,userRepository,userRepository2]; root of factory hierarchy</p>
-</li>
-<li><p>false</p>
-</li>
-</ol>
-<blockquote>
-<p>延迟注入</p>
-</blockquote>
-<p><img src="C:\Users\10841\AppData\Roaming\Typora\typora-user-images\image-20221216164559290.png" alt="image-20221216164559290"></p>
-<p><img src="C:\Users\10841\AppData\Roaming\Typora\typora-user-images\image-20221216164645777.png" alt="image-20221216164645777"></p>
-<p><strong>结果如下：</strong></p>
-<ol>
-<li>org.springframework.context.support.ClassPathXmlApplicationContext@2f7c7260, started on Fri Dec 16 16:46:38 GMT+08:00 2022</li>
-<li>true</li>
-</ol>
-<blockquote>
-<p>此时的容器就是当前处理Bean的容器</p>
-</blockquote>
-<h1 id="依赖的来源从哪里来的？"><a href="#依赖的来源从哪里来的？" class="headerlink" title="依赖的来源从哪里来的？"></a>依赖的来源从哪里来的？</h1><h2 id="SpringIOC依赖来源"><a href="#SpringIOC依赖来源" class="headerlink" title="SpringIOC依赖来源"></a>SpringIOC依赖来源</h2><ul>
-<li>自定义Bean</li>
-<li>容器内建Bean</li>
-<li>容器内建依赖</li>
-</ul>
-<blockquote>
-<p>什么是内建Bean</p>
-</blockquote>
-<p><img src="C:\Users\10841\AppData\Roaming\Typora\typora-user-images\image-20221216165718999.png" alt="image-20221216165718999"></p>
-<p><strong>结果如下：</strong></p>
-<ol>
-<li>org.springframework.beans.factory.support.<strong>DefaultListableBeanFactory</strong>@1a04f701</li>
-<li><strong>StandardEnvironment</strong> {activeProfiles=[], defaultProfiles=[default], propertySources=[PropertiesPropertySource {name=’systemProperties’}, SystemEnvironmentPropertySource {name=’systemEnvironment’}]}</li>
-</ol>
-<h1 id="IOC的元配置信息"><a href="#IOC的元配置信息" class="headerlink" title="IOC的元配置信息"></a>IOC的元配置信息</h1><h2 id="要素"><a href="#要素" class="headerlink" title="要素"></a>要素</h2><ul>
-<li>Bean定义配置<ul>
-<li>基于XML文件</li>
-<li>基于Properties文件</li>
-<li>基于Java注解</li>
-<li><strong>基于Java API</strong></li>
-</ul>
-</li>
-<li>IOC容器配置<ul>
-<li>基于XML文件</li>
-<li>基于Java注解</li>
-<li>基于Java API</li>
-</ul>
-</li>
-<li>外部化属性配置<ul>
-<li>基于Java注解</li>
-</ul>
-</li>
-</ul>
-<h1 id="BeanFactory和ApplicationContext"><a href="#BeanFactory和ApplicationContext" class="headerlink" title="BeanFactory和ApplicationContext"></a>BeanFactory和ApplicationContext</h1><h2 id="谁才是IOC容器"><a href="#谁才是IOC容器" class="headerlink" title="谁才是IOC容器"></a>谁才是IOC容器</h2><p>ApplicationContext就是BeanFactory，因为是子接口</p>
-<p>BeanFactory是一个基类，而ApplicationContext是超类，作为扩展性企业级接口</p>
-<p>当我们使用BeanFactory直接getBean(BeanFactory)的时候，是无法通过依赖查找的。而Spring注入的依赖并非当前应用上下文ApplicationContext，而是通过组合的方式注入进来的一个代理ApplicationContext</p>
-<p><img src="C:\Users\10841\AppData\Roaming\Typora\typora-user-images\image-20221216174216716.png" alt="image-20221216174216716"></p>
-<h1 id="ApplicationContext除了IOC角色，-还提供哪些功能？"><a href="#ApplicationContext除了IOC角色，-还提供哪些功能？" class="headerlink" title="ApplicationContext除了IOC角色， 还提供哪些功能？"></a>ApplicationContext除了IOC角色， 还提供哪些功能？</h1><ul>
-<li>面向切面（AOP）</li>
-<li>配置元信息（Configuration Metadata）</li>
-<li>资源管理（Resources）</li>
-<li>事件（Events）</li>
-<li>国际化（i18n）</li>
-<li>注解（Annotations）</li>
-<li>Environment抽象（Environment Abstraction）</li>
-</ul>
-<h1 id="BeanFactory和FactoryBean的区别"><a href="#BeanFactory和FactoryBean的区别" class="headerlink" title="BeanFactory和FactoryBean的区别"></a>BeanFactory和FactoryBean的区别</h1><p>BeanFactory是IOC底层容器</p>
-<p>FactoryBean是创建Bean的一种方式，帮助实现复杂的初始化逻辑</p>
+<p><img src="https://jhang-image.oss-cn-beijing.aliyuncs.com/images2/image-20221230174752528.png" alt="image-20221230174752528"></p>
 
                 
             </div>
@@ -607,6 +481,10 @@
                             
                                 <a href="/tags/%E6%BA%90%E7%A0%81/">
                                     <span class="chip bg-color">源码</span>
+                                </a>
+                            
+                                <a href="/tags/SpringBean/">
+                                    <span class="chip bg-color">SpringBean</span>
                                 </a>
                             
                         </div>
@@ -650,9 +528,10 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2022/12/16/springbean/">
                     <div class="card-image">
@@ -670,9 +549,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-12-16
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-12-16
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -689,6 +568,7 @@
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -719,13 +599,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2022/12/16/spring-he-xin-te-xing/">
+                <a href="/2022/12/16/springioc-rong-qi-gai-shu/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="Spring核心特性技术">
+                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="SpringIOC概述">
                         
-                        <span class="card-title">Spring核心特性技术</span>
+                        <span class="card-title">SpringIOC概述</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
