@@ -370,7 +370,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-12-30
+                    2023-01-03
                 </div>
                 
 
@@ -413,7 +413,7 @@
 
 
 <p>结果如下：</p>
-<p><img src="C:\Users\10841\AppData\Roaming\Typora\typora-user-images\image-20221216145332889.png" alt="image-20221216145332889"></p>
+<p><img src="https://jhang-image.oss-cn-beijing.aliyuncs.com/images2/image-20221216145332889.png" alt="image-20221216145332889"></p>
 <p><strong>这里的重点在于：PropertyDescriptor会在Spring3.0之前框架中大量使用</strong></p>
 <h1 id="依赖查找-VS-依赖注入"><a href="#依赖查找-VS-依赖注入" class="headerlink" title="依赖查找 VS 依赖注入"></a>依赖查找 VS 依赖注入</h1><blockquote>
 <p>为什么Spring总会强调后者？而选择性忽略前者呢？</p>
@@ -475,8 +475,8 @@
 <li>延迟查找</li>
 </ul>
 <p><strong>XML配置如下</strong></p>
-<p><img src="C:\Users\10841\AppData\Roaming\Typora\typora-user-images\image-20221216154022253.png" alt="image-20221216154022253"></p>
-<p><img src="C:\Users\10841\AppData\Roaming\Typora\typora-user-images\image-20221216154038834.png" alt="image-20221216154038834"></p>
+<p><img src="https://jhang-image.oss-cn-beijing.aliyuncs.com/images2/image-20221216154022253.png" alt="image-20221216154022253"></p>
+<p><img src="https://jhang-image.oss-cn-beijing.aliyuncs.com/images2/image-20221216154038834.png" alt="image-20221216154038834"></p>
 <blockquote>
 <p>根据类型查找Bean</p>
 </blockquote>
@@ -485,7 +485,7 @@
 <li>多个Bean查找</li>
 </ul>
 <p>多个Bean得通过 <strong>ListtableBeanFactory</strong> 工厂进行查找</p>
-<p><img src="C:\Users\10841\AppData\Roaming\Typora\typora-user-images\image-20221216154543120.png" alt="image-20221216154543120"></p>
+<p><img src="https://jhang-image.oss-cn-beijing.aliyuncs.com/images2/image-20221216154543120.png" alt="image-20221216154543120"></p>
 <p><strong>结果如下</strong></p>
 <blockquote>
 <p>实时查找Users{name=’张三’, id=1}<br>查找到所有的User集合对象{user=Users{name=’张三’, id=1}}</p>
@@ -493,7 +493,7 @@
 <blockquote>
 <p>通过Java注解查找</p>
 </blockquote>
-<p><img src="C:\Users\10841\AppData\Roaming\Typora\typora-user-images\image-20221216160812932.png" alt="image-20221216160812932"></p>
+<p><img src="https://jhang-image.oss-cn-beijing.aliyuncs.com/images2/image-20221216160812932.png" alt="image-20221216160812932"></p>
 <h2 id="1-2-依赖注入"><a href="#1-2-依赖注入" class="headerlink" title="1.2 依赖注入"></a>1.2 依赖注入</h2><ul>
 <li>根据Bean名称注入</li>
 <li>根据Bean类型注入<ul>
@@ -509,12 +509,12 @@
 </ul>
 </li>
 </ul>
-<p><img src="C:\Users\10841\AppData\Roaming\Typora\typora-user-images\image-20221216163137269.png" alt="image-20221216163137269"></p>
+<p><img src="https://jhang-image.oss-cn-beijing.aliyuncs.com/images2/image-20221216163137269.png" alt="image-20221216163137269"></p>
 <blockquote>
 <p>注入容器内建的Bean</p>
 </blockquote>
-<p><img src="C:\Users\10841\AppData\Roaming\Typora\typora-user-images\image-20221216163827548.png" alt="image-20221216163827548"></p>
-<p><img src="C:\Users\10841\AppData\Roaming\Typora\typora-user-images\image-20221216163923998.png" alt="image-20221216163923998"></p>
+<p><img src="https://jhang-image.oss-cn-beijing.aliyuncs.com/images2/image-20221216163827548.png" alt="image-20221216163827548"></p>
+<p><img src="https://jhang-image.oss-cn-beijing.aliyuncs.com/images2/image-20221216163923998.png" alt="image-20221216163923998"></p>
 <p><strong>结果如下</strong></p>
 <ol>
 <li><p>org.springframework.beans.factory.support.DefaultListableBeanFactory@1a04f701: defining beans [user,objectFactory,superUser,userRepository,userRepository2]; root of factory hierarchy</p>
@@ -525,8 +525,8 @@
 <blockquote>
 <p>延迟注入</p>
 </blockquote>
-<p><img src="C:\Users\10841\AppData\Roaming\Typora\typora-user-images\image-20221216164559290.png" alt="image-20221216164559290"></p>
-<p><img src="C:\Users\10841\AppData\Roaming\Typora\typora-user-images\image-20221216164645777.png" alt="image-20221216164645777"></p>
+<p><img src="https://jhang-image.oss-cn-beijing.aliyuncs.com/images2/image-20221216164559290.png" alt="image-20221216164559290"></p>
+<p><img src="https://jhang-image.oss-cn-beijing.aliyuncs.com/images2/image-20221216164645777.png" alt="image-20221216164645777"></p>
 <p><strong>结果如下：</strong></p>
 <ol>
 <li>org.springframework.context.support.ClassPathXmlApplicationContext@2f7c7260, started on Fri Dec 16 16:46:38 GMT+08:00 2022</li>
@@ -543,7 +543,7 @@
 <blockquote>
 <p>什么是内建Bean</p>
 </blockquote>
-<p><img src="C:\Users\10841\AppData\Roaming\Typora\typora-user-images\image-20221216165718999.png" alt="image-20221216165718999"></p>
+<p><img src="https://jhang-image.oss-cn-beijing.aliyuncs.com/images2/image-20221216165718999.png" alt="image-20221216165718999"></p>
 <p><strong>结果如下：</strong></p>
 <ol>
 <li>org.springframework.beans.factory.support.<strong>DefaultListableBeanFactory</strong>@1a04f701</li>
@@ -571,7 +571,7 @@
 <h1 id="BeanFactory和ApplicationContext"><a href="#BeanFactory和ApplicationContext" class="headerlink" title="BeanFactory和ApplicationContext"></a>BeanFactory和ApplicationContext</h1><h2 id="谁才是IOC容器"><a href="#谁才是IOC容器" class="headerlink" title="谁才是IOC容器"></a>谁才是IOC容器</h2><p>ApplicationContext就是BeanFactory，因为是子接口</p>
 <p>BeanFactory是一个基类，而ApplicationContext是超类，作为扩展性企业级接口</p>
 <p>当我们使用BeanFactory直接getBean(BeanFactory)的时候，是无法通过依赖查找的。而Spring注入的依赖并非当前应用上下文ApplicationContext，而是通过组合的方式注入进来的一个代理ApplicationContext</p>
-<p><img src="C:\Users\10841\AppData\Roaming\Typora\typora-user-images\image-20221216174216716.png" alt="image-20221216174216716"></p>
+<p><img src="https://jhang-image.oss-cn-beijing.aliyuncs.com/images2/image-20221216174216716.png" alt="image-20221216174216716"></p>
 <h1 id="ApplicationContext除了IOC角色，-还提供哪些功能？"><a href="#ApplicationContext除了IOC角色，-还提供哪些功能？" class="headerlink" title="ApplicationContext除了IOC角色， 还提供哪些功能？"></a>ApplicationContext除了IOC角色， 还提供哪些功能？</h1><ul>
 <li>面向切面（AOP）</li>
 <li>配置元信息（Configuration Metadata）</li>
@@ -650,17 +650,18 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2022/12/16/springbean/">
+                <a href="/2022/12/16/springioc-rong-qi-gai-shu/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="SpringBean基础知识">
+                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="SpringIOC概述">
                         
-                        <span class="card-title">SpringBean基础知识</span>
+                        <span class="card-title">SpringIOC概述</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -670,9 +671,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-12-16
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-12-16
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -689,6 +690,7 @@
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -704,10 +706,6 @@
                         <span class="chip bg-color">源码</span>
                     </a>
                     
-                    <a href="/tags/SpringBean/">
-                        <span class="chip bg-color">SpringBean</span>
-                    </a>
-                    
                 </div>
                 
             </div>
@@ -719,13 +717,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2022/12/16/spring-he-xin-te-xing/">
+                <a href="/2022/12/16/springbean/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="Spring核心特性技术">
+                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="SpringBean基础知识">
                         
-                        <span class="card-title">Spring核心特性技术</span>
+                        <span class="card-title">SpringBean基础知识</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -767,6 +765,10 @@
                     
                     <a href="/tags/%E6%BA%90%E7%A0%81/">
                         <span class="chip bg-color">源码</span>
+                    </a>
+                    
+                    <a href="/tags/SpringBean/">
+                        <span class="chip bg-color">SpringBean</span>
                     </a>
                     
                 </div>
@@ -943,7 +945,7 @@
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2022</span>
+                <span id="year">2022-2023</span>
             
             <span id="year">2022</span>
             <a href="/about" target="_blank">Jhang</a>
